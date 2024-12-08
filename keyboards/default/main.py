@@ -12,10 +12,8 @@ async def send_latest_award(message: types.Message):
     latest_award = db.get_latest_award()
 
     if latest_award:
-        # Agar latest_award 3 ta qiymatga ega bo'lsa (title, description, image)
         if len(latest_award) == 3:
             title, description, image_path = latest_award
-        # Agar 2 ta qiymat bo'lsa (description, image)
         elif len(latest_award) == 2:
             title = "Mukofot"
             description, image_path = latest_award
@@ -48,17 +46,11 @@ async def send_top_users_and_score(message: types.Message):
     if top_users:
         top_users_text = []
         for i, user_data in enumerate(top_users):
-            # Agar user_data 3 ta elementdan iborat bo'lsa
             if len(user_data) == 3:
                 fullname, score, telegram_id = user_data
-            # Agar user_data 2 ta elementdan iborat bo'lsa
             else:
                 fullname, score = user_data
-
-            # Birinchi 3 ta o'rin uchun medal
             medal = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else "👤"
-
-            # Foydalanuvchi ma'lumotlarini formatlash
             top_users_text.append(
                 f"{i + 1}) {medal} {fullname}\n"
                 f"Ball: {score} 🎯"
